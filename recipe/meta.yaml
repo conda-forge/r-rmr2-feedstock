@@ -14,9 +14,9 @@ source:
   sha256: 9f1841697ad2bcdef4af90d95608bbac6a14eae32a5a8d5229e593e7524d4155
 
 build:
-  number: 0
+  noarch: generic
+  number: 1000
   # skip windows build due to "unable to identify current timezone 'C'"
-  skip: true  # [win]
   rpaths:
     - lib/R/lib/
     - lib/
