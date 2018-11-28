@@ -14,15 +14,18 @@ source:
   sha256: 9f1841697ad2bcdef4af90d95608bbac6a14eae32a5a8d5229e593e7524d4155
 
 build:
-  number: 0
-  # skip windows build due to "unable to identify current timezone 'C'"
-  skip: true  # [win]
+  number: 1000
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{ compiler('cxx') }}        # [not win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('fortran') }}        # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+  host:
     - r-base
     - r-rjsonio >=0.8_2
     - r-rcpp
@@ -58,3 +61,4 @@ extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - dpryan79
