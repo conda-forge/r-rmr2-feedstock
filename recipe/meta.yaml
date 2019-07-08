@@ -1,5 +1,4 @@
 {% set version = '3.3.1' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,13 +7,13 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: rmr2_{{ version }}.tar.gz
   url:
     - https://github.com/RevolutionAnalytics/rmr2/releases/download/{{ version }}/rmr2_{{ version }}.tar.gz
   sha256: 9f1841697ad2bcdef4af90d95608bbac6a14eae32a5a8d5229e593e7524d4155
 
 build:
-  number: 1000
+  merge_build_host: True  # [win]
+  number: 1001
   rpaths:
     - lib/R/lib/
     - lib/
@@ -25,6 +24,11 @@ requirements:
     - {{ compiler('m2w64_cxx') }}  # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-rjsonio >=0.8_2
@@ -37,6 +41,7 @@ requirements:
     - r-stringr
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-rjsonio >=0.8_2
     - r-rcpp
     - r-catools >=1.16
@@ -48,7 +53,7 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('rmr2')"  # [not win]
+    - $R -e "library('rmr2')"           # [not win]
     - "\"%R%\" -e \"library('rmr2')\""  # [win]
 
 about:
@@ -59,6 +64,20 @@ about:
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
-    - dpryan79
+    - conda-forge/r
+
+# Package: rmr2
+# Type: Package
+# Title: R and Hadoop Streaming Connector
+# Version: 3.3.1
+# Date: 2015-2-10
+# Author: Revolution Analytics
+# Depends: R (>= 2.6.0), methods
+# Imports: Rcpp, RJSONIO (>= 0.8-2), digest, functional, reshape2, stringr, plyr, caTools (>= 1.16)
+# Suggests: quickcheck (>= 3.0.0), ravro, rhdfs, testthat
+# Collate: basic.R extras.R hdfs.R keyval.R IO.R local.R mapreduce.R parse-url.R quickcheck-rmr.R streaming.R
+# Maintainer: Revolution Analytics <rhadoop@revolutionanalytics.com>
+# Description: Supports the map reduce programming model on top of hadoop streaming
+# License: Apache License (== 2.0)
+# ByteCompile: TRUE
+# BuildVignettes: FALSE
