@@ -13,7 +13,7 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  number: 1003
+  number: 1004
   rpaths:
     - lib/R/lib/
     - lib/
@@ -24,11 +24,11 @@ requirements:
     - {{ compiler('m2w64_cxx') }}  # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{posix}}filesystem        # [win]
-    - {{posix}}make
-    - {{posix}}sed               # [win]
-    - {{posix}}coreutils         # [win]
-    - {{posix}}zip               # [win]
+    - {{ posix }}filesystem        # [win]
+    - {{ posix }}make
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
+    - {{ posix }}zip               # [win]
   host:
     - r-base
     - r-rjsonio >=0.8_2
@@ -41,7 +41,7 @@ requirements:
     - r-stringr
   run:
     - r-base
-    - {{native}}gcc-libs         # [win]
+    - {{ native }}gcc-libs         # [win]
     - r-rjsonio >=0.8_2
     - r-rcpp
     - r-catools >=1.16
@@ -58,8 +58,9 @@ test:
 
 about:
   home: https://github.com/RevolutionAnalytics/rmr2
-  license: Apache 2.0
+  license: Apache-2.0
   license_family: Apache
+  license_file: LICENSE-2.0.txt
   summary: Supports the map reduce programming model on top of hadoop streaming
 
 extra:
