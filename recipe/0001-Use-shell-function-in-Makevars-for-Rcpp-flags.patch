@@ -1,0 +1,36 @@
+commit a56b3a22000e6b40c87f3975991e0a6dc145149b (HEAD)
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Sun Oct 16 04:40:18 2022 +0200
+
+    Use shell function in Makevars for Rcpp flags
+
+diff --git a/pkg/src/Makevars b/pkg/src/Makevars
+index c80a57c..b609db2 100644
+--- a/pkg/src/Makevars
++++ b/pkg/src/Makevars
+@@ -1,8 +1,8 @@
+ BINDIR = inst/hbase-io
+ .PHONY: all hbase-io
+ 
+-PKG_CXXFLAGS=`${R_HOME}/bin/Rscript -e "Rcpp:::CxxFlags()"`
+-PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"` 
++PKG_CXXFLAGS ::= $(shell "$(R_HOME)/bin/Rscript" -e "Rcpp:::CxxFlags()")
++PKG_LIBS ::= $(shell "$(R_HOME)/bin/Rscript" -e "Rcpp:::LdFlags()")
+ 
+ all: $(SHLIB) hbase-io
+ 
+diff --git a/pkg/src/Makevars.win b/pkg/src/Makevars.win
+index 46cc8d3..86159c4 100644
+--- a/pkg/src/Makevars.win
++++ b/pkg/src/Makevars.win
+@@ -1,8 +1,8 @@
+ BINDIR         = inst/bin$(R_ARCH)
+ .PHONY: all bin
+ 
+-PKG_CXXFLAGS=`${R_HOME}/bin/Rscript -e "Rcpp:::CxxFlags()"`
+-PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
++PKG_CXXFLAGS ::= $(shell "$(R_HOME)/bin/Rscript" -e "Rcpp:::CxxFlags()")
++PKG_LIBS ::= $(shell "$(R_HOME)/bin/Rscript" -e "Rcpp:::LdFlags()")
+ 
+ all: $(SHLIB) bin
+ 
