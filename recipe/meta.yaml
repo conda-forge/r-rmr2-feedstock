@@ -10,10 +10,12 @@ source:
   url:
     - https://github.com/RevolutionAnalytics/rmr2/releases/download/{{ version }}/rmr2_{{ version }}.tar.gz
   sha256: 9f1841697ad2bcdef4af90d95608bbac6a14eae32a5a8d5229e593e7524d4155
+  patches:
+    - 0001-Use-shell-function-in-Makevars-for-Rcpp-flags.patch
 
 build:
   merge_build_host: True  # [win]
-  number: 1005
+  number: 1006
   rpaths:
     - lib/R/lib/
     - lib/
