@@ -1,6 +1,5 @@
 {% set version = '3.3.1' %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-rmr2
@@ -14,8 +13,7 @@ source:
     - 0001-Use-shell-function-in-Makevars-for-Rcpp-flags.patch
 
 build:
-  merge_build_host: True  # [win]
-  number: 1007
+  number: 1008
   rpaths:
     - lib/R/lib/
     - lib/
@@ -26,6 +24,7 @@ requirements:
     - {{ compiler('m2w64_cxx') }}  # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ stdlib("c") }}    # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}make
     - {{ posix }}sed               # [win]
@@ -43,7 +42,6 @@ requirements:
     - r-stringr
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-rjsonio >=0.8_2
     - r-rcpp
     - r-catools >=1.16
