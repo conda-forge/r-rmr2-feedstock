@@ -13,7 +13,7 @@ source:
     - 0001-Use-shell-function-in-Makevars-for-Rcpp-flags.patch
 
 build:
-  number: 1008
+  number: 1009
   rpaths:
     - lib/R/lib/
     - lib/
